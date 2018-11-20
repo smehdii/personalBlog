@@ -1,6 +1,6 @@
 {
   "name": "@personalblog/server",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Personal Blog.",
   "devDependencies": {
     "@types/express": "^4.16.0",
@@ -16,6 +16,7 @@
     "typescript": "3.1.6"
   },
   "dependencies": {
+    "@personalblog/common": "^1.0.0",
     "@graphql-modules/epoxy": "^0.2.4",
     "@graphql-modules/sonar": "^0.2.4",
     "apollo-server-express": "^2.2.2",

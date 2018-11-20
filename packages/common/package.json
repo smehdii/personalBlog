@@ -1,6 +1,17 @@
 {
   "name": "@personalblog/common",
   "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT"
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "yup": "^0.26.6"
+  },
+  "devDependencies": {
+    "@types/yup": "^0.26.2",
+    "typescript": "^3.1.6"
+  }
 }

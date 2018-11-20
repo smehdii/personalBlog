@@ -1,6 +1,6 @@
 {
   "name": "@personalblog/client",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Personal Blog Client",
   "main": "index.js",
   "license": "MIT"

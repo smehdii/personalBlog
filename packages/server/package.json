@@ -1,5 +1,5 @@
 {
-  "name": "personalBlog",
+  "name": "@personalblog/server",
   "version": "0.0.1",
   "description": "Personal Blog.",
   "devDependencies": {

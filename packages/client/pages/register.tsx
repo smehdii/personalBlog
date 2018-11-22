@@ -1,17 +1,17 @@
 import { Button, Form } from "semantic-ui-react";
 import { Formik, Field } from "formik";
 import { registerSchema } from "@personalblog/common";
+import { Mutation } from "react-apollo";
+import Router from "next/router";
 
 import { InputField } from "../components/formik-fields/InputField";
 import { ErrorMessage } from "../components/ErrorMessage";
-
 import { normalizeErrors } from "../utils/normalizeErrors";
 import { registerMutation } from "../graphql/user/mutation/register";
 import {
   RegisterMutation,
   RegisterMutationVariables
 } from "../lib/schema-types";
-import { Mutation } from "react-apollo";
 
 interface FormValues {
   username: string;
@@ -30,19 +30,26 @@ export default () => (
           const response = await mutate({
             variables: { input }
           });
-          console.log("register Response", response);
-          if (response && response.data && response.data.register.errors) {
+
+          if (
+            response &&
+            response.data &&
+            response.data.register.errors &&
+            response.data.register.errors.length
+          ) {
+            console.log("err");
             setSubmitting(false);
             return setErrors(normalizeErrors(response.data.register.errors));
           } else {
-            //navigate screen
+            console.log("change route");
+            Router.push("/login");
           }
         }}
         validationSchema={registerSchema}
         validateOnBlur={false}
         validateOnChange={false}
       >
-        {({ errors, handleSubmit }) => (
+        {({ errors, handleSubmit, isSubmitting }) => (
           <Form onSubmit={handleSubmit}>
             <Field
               name="username"
@@ -60,11 +67,13 @@ export default () => (
               name="password"
               label="Password"
               placeholder="Password"
-              type="password"
               component={InputField}
+              type="password"
             />
-            <Button type="submit">Create Account</Button>
             <ErrorMessage errors={errors} />
+            <Button disabled={isSubmitting} type="submit">
+              Create Account
+            </Button>
           </Form>
         )}
       </Formik>

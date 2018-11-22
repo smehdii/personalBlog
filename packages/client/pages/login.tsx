@@ -34,6 +34,7 @@ export default () => (
             return setErrors(normalizeErrors(response.data.login.errors));
           } else {
             console.log("login Success");
+            setSubmitting(false);
           }
         }}
         validateOnBlur={false}

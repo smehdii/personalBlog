@@ -29,7 +29,6 @@ const startServer = async () => {
       store: new RedisStore({
         client: redis as any
       }),
-      name: "qid",
       secret: SESSION_SECRET,
       resave: false,
       saveUninitialized: false,

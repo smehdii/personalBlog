@@ -33,8 +33,9 @@ export const resolvers: MutationResolvers.Resolvers = {
     if (!valid) {
       return invalidLoginResponse;
     }
-
+    console.log("user", user);
     req.session!.userId = user.id;
+    console.log("SESSIONID", req.session!.userId);
 
     return {
       errors: [],

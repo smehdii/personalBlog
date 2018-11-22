@@ -40,7 +40,7 @@ export const resolvers: MutationResolvers.Resolvers = {
             errors: [
               {
                 path: "username",
-                message: "already taken"
+                message: "Username already taken"
               }
             ]
           };

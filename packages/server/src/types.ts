@@ -1,3 +1,13 @@
+export interface CreateBlogInput {
+  title: string;
+
+  content: string;
+
+  pictureUrl: string;
+
+  techTags: string[];
+}
+
 export interface LoginInput {
   usernameOrEmail: string;
 
@@ -31,21 +41,43 @@ export interface User {
 }
 
 export interface Mutation {
+  createBlog: CreateBlogReponse;
+
   login: LoginResponse;
 
   register: RegisterResponse;
 }
 
-export interface LoginResponse {
+export interface CreateBlogReponse {
   errors?: Error[] | null;
 
-  user?: User | null;
+  blog?: Blog | null;
 }
 
 export interface Error {
   path: string;
 
   message: string;
+}
+
+export interface Blog {
+  id: string;
+
+  title: string;
+
+  content: string;
+
+  pictureUrl: string;
+
+  techTags: string[];
+
+  author: string;
+}
+
+export interface LoginResponse {
+  errors?: Error[] | null;
+
+  user?: User | null;
 }
 
 export interface RegisterResponse {
@@ -56,6 +88,9 @@ export interface RegisterResponse {
 // Arguments
 // ====================================================
 
+export interface CreateBlogMutationArgs {
+  input: CreateBlogInput;
+}
 export interface LoginMutationArgs {
   input: LoginInput;
 }
@@ -147,9 +182,20 @@ export namespace UserResolvers {
 
 export namespace MutationResolvers {
   export interface Resolvers<Context = MyContext, TypeParent = {}> {
+    createBlog?: CreateBlogResolver<CreateBlogReponse, TypeParent, Context>;
+
     login?: LoginResolver<LoginResponse, TypeParent, Context>;
 
     register?: RegisterResolver<RegisterResponse, TypeParent, Context>;
+  }
+
+  export type CreateBlogResolver<
+    R = CreateBlogReponse,
+    Parent = {},
+    Context = MyContext
+  > = Resolver<R, Parent, Context, CreateBlogArgs>;
+  export interface CreateBlogArgs {
+    input: CreateBlogInput;
   }
 
   export type LoginResolver<
@@ -171,21 +217,24 @@ export namespace MutationResolvers {
   }
 }
 
-export namespace LoginResponseResolvers {
-  export interface Resolvers<Context = MyContext, TypeParent = LoginResponse> {
+export namespace CreateBlogReponseResolvers {
+  export interface Resolvers<
+    Context = MyContext,
+    TypeParent = CreateBlogReponse
+  > {
     errors?: ErrorsResolver<Error[] | null, TypeParent, Context>;
 
-    user?: UserResolver<User | null, TypeParent, Context>;
+    blog?: BlogResolver<Blog | null, TypeParent, Context>;
   }
 
   export type ErrorsResolver<
     R = Error[] | null,
-    Parent = LoginResponse,
+    Parent = CreateBlogReponse,
     Context = MyContext
   > = Resolver<R, Parent, Context>;
-  export type UserResolver<
-    R = User | null,
-    Parent = LoginResponse,
+  export type BlogResolver<
+    R = Blog | null,
+    Parent = CreateBlogReponse,
     Context = MyContext
   > = Resolver<R, Parent, Context>;
 }
@@ -205,6 +254,72 @@ export namespace ErrorResolvers {
   export type MessageResolver<
     R = string,
     Parent = Error,
+    Context = MyContext
+  > = Resolver<R, Parent, Context>;
+}
+
+export namespace BlogResolvers {
+  export interface Resolvers<Context = MyContext, TypeParent = Blog> {
+    id?: IdResolver<string, TypeParent, Context>;
+
+    title?: TitleResolver<string, TypeParent, Context>;
+
+    content?: ContentResolver<string, TypeParent, Context>;
+
+    pictureUrl?: PictureUrlResolver<string, TypeParent, Context>;
+
+    techTags?: TechTagsResolver<string[], TypeParent, Context>;
+
+    author?: AuthorResolver<string, TypeParent, Context>;
+  }
+
+  export type IdResolver<
+    R = string,
+    Parent = Blog,
+    Context = MyContext
+  > = Resolver<R, Parent, Context>;
+  export type TitleResolver<
+    R = string,
+    Parent = Blog,
+    Context = MyContext
+  > = Resolver<R, Parent, Context>;
+  export type ContentResolver<
+    R = string,
+    Parent = Blog,
+    Context = MyContext
+  > = Resolver<R, Parent, Context>;
+  export type PictureUrlResolver<
+    R = string,
+    Parent = Blog,
+    Context = MyContext
+  > = Resolver<R, Parent, Context>;
+  export type TechTagsResolver<
+    R = string[],
+    Parent = Blog,
+    Context = MyContext
+  > = Resolver<R, Parent, Context>;
+  export type AuthorResolver<
+    R = string,
+    Parent = Blog,
+    Context = MyContext
+  > = Resolver<R, Parent, Context>;
+}
+
+export namespace LoginResponseResolvers {
+  export interface Resolvers<Context = MyContext, TypeParent = LoginResponse> {
+    errors?: ErrorsResolver<Error[] | null, TypeParent, Context>;
+
+    user?: UserResolver<User | null, TypeParent, Context>;
+  }
+
+  export type ErrorsResolver<
+    R = Error[] | null,
+    Parent = LoginResponse,
+    Context = MyContext
+  > = Resolver<R, Parent, Context>;
+  export type UserResolver<
+    R = User | null,
+    Parent = LoginResponse,
     Context = MyContext
   > = Resolver<R, Parent, Context>;
 }

@@ -1,0 +1,8 @@
+type Blog {
+  id: ID!
+  title: String!
+  content: String!
+  pictureUrl: String!
+  techTags: [String!]!
+  author: String!
+}

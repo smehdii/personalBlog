@@ -19,14 +19,9 @@
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": false,
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "baseUrl": ".."
+    "experimentalDecorators": true
   },
   "exclude": ["node_modules"],
-  "include": [
-    "./src/**/*.tsx",
-    "./src/**/*.ts",
-    "../client/components/Layout.tsx"
-  ],
+  "include": ["./src/**/*.tsx", "./src/**/*.ts"],
   "references": [{ "path": "../common" }]
 }

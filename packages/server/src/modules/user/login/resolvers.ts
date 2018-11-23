@@ -1,9 +1,8 @@
-import { MutationResolvers } from "server/src/types";
-
 import * as argon from "argon2";
 import { getConnection } from "typeorm";
 
 import { User } from "../../../entity/User";
+import { MutationResolvers } from "../../../types";
 
 const invalidLoginResponse = {
   errors: [

@@ -1,0 +1,14 @@
+input CreateBlogInput {
+  title: String!
+  content: String!
+  pictureUrl: String!
+  techTags: [String!]!
+}
+type CreateBlogReponse {
+  errors: [Error!]
+  blog: Blog
+}
+
+type Mutation {
+  createBlog(input: CreateBlogInput!): CreateBlogReponse!
+}

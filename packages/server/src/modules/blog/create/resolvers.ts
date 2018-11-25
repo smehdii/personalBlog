@@ -8,6 +8,7 @@ export const resolvers: MutationResolvers.Resolvers = {
     { input: { content, pictureUrl, techTags, title } },
     { req }
   ) => {
+    // req.session!.userId = "2afdbfc1-b26b-4baa-b58c-fdc03c4d3f76";
     isAuthenticated(req);
     const blog = await Blog.create({
       title,

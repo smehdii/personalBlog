@@ -1,6 +1,8 @@
 import * as React from "react";
-import Link from "next/link";
 import Head from "next/head";
+import Header from "./Header";
+import Footer from "./Footer";
+import { Container } from "semantic-ui-react";
 
 type Props = {
   title?: string;
@@ -16,23 +18,9 @@ const Layout: React.SFC<Props> = ({
       <meta charSet="utf-8" />
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     </Head>
-    <header>
-      <nav>
-        <Link href="/">
-          <a>Home</a>
-        </Link>{" "}
-        |{" "}
-        <Link href="/about">
-          <a>About</a>
-        </Link>{" "}
-        |{" "}
-        <Link href="/register">
-          <a>Register</a>
-        </Link>
-      </nav>
-    </header>
-    {children}
-    <footer>Footer</footer>
+    <Header />
+    <Container>{children}</Container>
+    <Footer />
   </div>
 );
 

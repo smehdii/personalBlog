@@ -13,9 +13,7 @@ class MyApp extends App {
     return (
       <Container>
         <ApolloProvider client={apolloClient}>
-          <SemanticContainer>
-            <Component {...pageProps} />
-          </SemanticContainer>
+          <Component {...pageProps} />
         </ApolloProvider>
       </Container>
     );

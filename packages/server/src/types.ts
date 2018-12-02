@@ -8,7 +8,7 @@ export interface CreateBlogInput {
   techTags: string[];
 }
 
-export interface CodeReviewRequestInput {
+export interface CreateCodeReviewRequestInput {
   numDays?: number | null;
 
   codeUrl: string;
@@ -37,9 +37,23 @@ export interface RegisterInput {
 // ====================================================
 
 export interface Query {
+  listCodeReviewRequests: CodeReviewRequest[];
+
   me?: User | null;
 
   dummy?: string | null;
+}
+
+export interface CodeReviewRequest {
+  id: string;
+
+  numDays?: number | null;
+
+  codeUrl: string;
+
+  techTags: string[];
+
+  notes: string;
 }
 
 export interface User {
@@ -92,18 +106,6 @@ export interface CodeReviewRequestResponse {
   CodeReviewRequest?: CodeReviewRequest | null;
 }
 
-export interface CodeReviewRequest {
-  id: string;
-
-  numDays?: number | null;
-
-  codeUrl: string;
-
-  techTags: string[];
-
-  notes: string;
-}
-
 export interface LoginResponse {
   errors?: Error[] | null;
 
@@ -122,7 +124,7 @@ export interface CreateBlogMutationArgs {
   input: CreateBlogInput;
 }
 export interface CreateCodeReviewRequestMutationArgs {
-  input: CodeReviewRequestInput;
+  input: CreateCodeReviewRequestInput;
 }
 export interface LoginMutationArgs {
   input: LoginInput;
@@ -170,11 +172,22 @@ export type SubscriptionResolver<
 
 export namespace QueryResolvers {
   export interface Resolvers<Context = MyContext, TypeParent = {}> {
+    listCodeReviewRequests?: ListCodeReviewRequestsResolver<
+      CodeReviewRequest[],
+      TypeParent,
+      Context
+    >;
+
     me?: MeResolver<User | null, TypeParent, Context>;
 
     dummy?: DummyResolver<string | null, TypeParent, Context>;
   }
 
+  export type ListCodeReviewRequestsResolver<
+    R = CodeReviewRequest[],
+    Parent = {},
+    Context = MyContext
+  > = Resolver<R, Parent, Context>;
   export type MeResolver<
     R = User | null,
     Parent = {},
@@ -183,6 +196,49 @@ export namespace QueryResolvers {
   export type DummyResolver<
     R = string | null,
     Parent = {},
+    Context = MyContext
+  > = Resolver<R, Parent, Context>;
+}
+
+export namespace CodeReviewRequestResolvers {
+  export interface Resolvers<
+    Context = MyContext,
+    TypeParent = CodeReviewRequest
+  > {
+    id?: IdResolver<string, TypeParent, Context>;
+
+    numDays?: NumDaysResolver<number | null, TypeParent, Context>;
+
+    codeUrl?: CodeUrlResolver<string, TypeParent, Context>;
+
+    techTags?: TechTagsResolver<string[], TypeParent, Context>;
+
+    notes?: NotesResolver<string, TypeParent, Context>;
+  }
+
+  export type IdResolver<
+    R = string,
+    Parent = CodeReviewRequest,
+    Context = MyContext
+  > = Resolver<R, Parent, Context>;
+  export type NumDaysResolver<
+    R = number | null,
+    Parent = CodeReviewRequest,
+    Context = MyContext
+  > = Resolver<R, Parent, Context>;
+  export type CodeUrlResolver<
+    R = string,
+    Parent = CodeReviewRequest,
+    Context = MyContext
+  > = Resolver<R, Parent, Context>;
+  export type TechTagsResolver<
+    R = string[],
+    Parent = CodeReviewRequest,
+    Context = MyContext
+  > = Resolver<R, Parent, Context>;
+  export type NotesResolver<
+    R = string,
+    Parent = CodeReviewRequest,
     Context = MyContext
   > = Resolver<R, Parent, Context>;
 }
@@ -243,7 +299,7 @@ export namespace MutationResolvers {
     Context = MyContext
   > = Resolver<R, Parent, Context, CreateCodeReviewRequestArgs>;
   export interface CreateCodeReviewRequestArgs {
-    input: CodeReviewRequestInput;
+    input: CreateCodeReviewRequestInput;
   }
 
   export type LoginResolver<
@@ -375,49 +431,6 @@ export namespace CodeReviewRequestResponseResolvers {
   export type CodeReviewRequestResolver<
     R = CodeReviewRequest | null,
     Parent = CodeReviewRequestResponse,
-    Context = MyContext
-  > = Resolver<R, Parent, Context>;
-}
-
-export namespace CodeReviewRequestResolvers {
-  export interface Resolvers<
-    Context = MyContext,
-    TypeParent = CodeReviewRequest
-  > {
-    id?: IdResolver<string, TypeParent, Context>;
-
-    numDays?: NumDaysResolver<number | null, TypeParent, Context>;
-
-    codeUrl?: CodeUrlResolver<string, TypeParent, Context>;
-
-    techTags?: TechTagsResolver<string[], TypeParent, Context>;
-
-    notes?: NotesResolver<string, TypeParent, Context>;
-  }
-
-  export type IdResolver<
-    R = string,
-    Parent = CodeReviewRequest,
-    Context = MyContext
-  > = Resolver<R, Parent, Context>;
-  export type NumDaysResolver<
-    R = number | null,
-    Parent = CodeReviewRequest,
-    Context = MyContext
-  > = Resolver<R, Parent, Context>;
-  export type CodeUrlResolver<
-    R = string,
-    Parent = CodeReviewRequest,
-    Context = MyContext
-  > = Resolver<R, Parent, Context>;
-  export type TechTagsResolver<
-    R = string[],
-    Parent = CodeReviewRequest,
-    Context = MyContext
-  > = Resolver<R, Parent, Context>;
-  export type NotesResolver<
-    R = string,
-    Parent = CodeReviewRequest,
     Context = MyContext
   > = Resolver<R, Parent, Context>;
 }

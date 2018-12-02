@@ -22,6 +22,10 @@
     "experimentalDecorators": true
   },
   "exclude": ["node_modules"],
-  "include": ["./src/**/*.tsx", "./src/**/*.ts"],
+  "include": [
+    "./src/**/*.tsx",
+    "./src/**/*.ts",
+    "../client/graphql/code-review-request/query/listCodeReviewRequests.ts"
+  ],
   "references": [{ "path": "../common" }]
 }

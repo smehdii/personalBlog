@@ -7,6 +7,7 @@ import { Button, Form } from "semantic-ui-react";
 import { ErrorMessage } from "../components/ErrorMessage";
 import { normalizeErrors } from "../utils/normalizeErrors";
 import Layout from "../components/Layout";
+import Router from "next/router";
 
 interface FormValues {
   usernameOrEmail: string;
@@ -14,7 +15,7 @@ interface FormValues {
 }
 
 export default () => (
-  <Layout>
+  <Layout title="Login Page || Personal Blog">
     <Mutation<LoginMutation, LoginMutationVariables> mutation={loginMutation}>
       {mutate => (
         <Formik<FormValues>
@@ -35,8 +36,8 @@ export default () => (
               setSubmitting(false);
               return setErrors(normalizeErrors(response.data.login.errors));
             } else {
-              console.log("login Success");
               setSubmitting(false);
+              Router.push("/create-code-review-request");
             }
           }}
           validateOnBlur={false}

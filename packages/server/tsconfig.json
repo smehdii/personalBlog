@@ -6,8 +6,9 @@
     "sourceMap": true,
     "outDir": "./dist",
     "moduleResolution": "node",
+    "declaration": false,
 
-    "composite": true,
+    "composite": false,
     "removeComments": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
@@ -19,13 +20,18 @@
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": false,
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "skipLibCheck": true,
+    "baseUrl": "."
   },
   "exclude": ["node_modules"],
   "include": [
     "./src/**/*.tsx",
     "./src/**/*.ts",
-    "../client/graphql/code-review-request/query/listCodeReviewRequests.ts"
+    "../client/pages/_document.tsx",
+    "../ui/src/components/Button.tsx",
+    "../ui/.storybook/addons.ts",
+    "../ui/.storybook/config.ts"
   ],
   "references": [{ "path": "../common" }]
 }

@@ -1,7 +1,0 @@
-type CodeReviewRequest {
-  id: ID!
-  numDays: Int
-  codeUrl: String!
-  techTags: [String!]!
-  notes: String!
-}

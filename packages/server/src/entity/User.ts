@@ -1,32 +1,33 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  BaseEntity,
-  OneToMany
-} from "typeorm";
-import { Blog } from "./Blog";
-import CodeReviewRequest from "./CodeReviewRequest";
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
+import { ObjectType, Field, ID } from "type-graphql";
 
 @Entity()
+@ObjectType()
 export class User extends BaseEntity {
-  @PrimaryGeneratedColumn("uuid") id: string;
+  @Field(() => ID)
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
 
+  @Field()
   @Column({ type: "text", unique: true })
   username: string;
 
+  @Field()
+  @Column({ type: "text" })
+  name: string;
+
   @Column({ type: "text", unique: true })
-  email: string;
+  githubId: string;
 
-  @Column()
-  password: string;
+  @Field()
+  @Column({ type: "text" })
+  pictureUrl: string;
 
-  @OneToMany(() => Blog, blog => blog.author)
-  blogs: Blog[];
+  @Field()
+  @Column({ type: "text" })
+  bio: string;
 
-  @OneToMany(
-    () => CodeReviewRequest,
-    codeReviewRequest => codeReviewRequest.owner
-  )
-  codeReviewRequests: CodeReviewRequest[];
+  @Field()
+  @Column({ type: "text" })
+  accessToken: string;
 }
